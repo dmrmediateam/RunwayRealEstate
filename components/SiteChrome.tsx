@@ -1,0 +1,270 @@
+import type { CSSProperties, ReactNode } from "react";
+import Script from "next/script";
+import SiteEffects from "@/components/SiteEffects";
+import type { SiteContent } from "@/content/site";
+import { FAIR_HOUSING_PLEDGE, REALTOR_MARK_NOTICE, mlsDisclaimerFor } from "@/lib/legal";
+
+/** Convert "#RRGGBB" to "r, g, b" for rgba() variants */
+function hexToRgb(hex: string): string {
+  const h = hex.replace("#", "");
+  const n = parseInt(h.length === 3 ? h.split("").map((c) => c + c).join("") : h, 16);
+  return `${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}`;
+}
+
+/** Shared shell: theme vars, nav, side menu, footer, floating connect button */
+export default function SiteChrome({
+  content,
+  children,
+  animateIn = false,
+  navTone = "light",
+}: {
+  content: SiteContent;
+  children: ReactNode;
+  /** Play the logo/nav/hero load-in sequence (homepage only) */
+  animateIn?: boolean;
+  /** Scrolled-header color: "dark" suits pages built on a dark canvas */
+  navTone?: "light" | "dark";
+}) {
+  const themeVars = {
+    "--navy": content.theme.primary,
+    "--navy-90": `rgba(${hexToRgb(content.theme.primary)}, 0.9)`,
+    "--taupe": content.theme.secondary,
+    "--taupe-overlay": `rgba(${hexToRgb(content.theme.secondary)}, 0.4)`,
+    "--cream": content.theme.background,
+    "--accent": content.theme.accent ?? content.theme.primary,
+    background: content.theme.background,
+  } as CSSProperties;
+
+  return (
+    <div
+      style={themeVars}
+      className={[animateIn && "load-anim", navTone === "dark" && "nav-dark"].filter(Boolean).join(" ") || undefined}
+    >
+      <SiteEffects />
+
+      {/* ============ HEADER / NAV ============ */}
+      <nav id="global-navbar" className="navbar">
+        <div className="header">
+          <div className="header__left">
+            <ul className="navigation">
+              {content.nav.left.map((link) => (
+                <li className="navigation__item" key={link.label}>
+                  <a href={link.href} className="navigation__link"><span>{link.label}</span></a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <a href={content.brand.homeHref ?? "/"} className="header__logo" aria-label="Home">
+            {content.brand.logo ? (
+              <>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={content.brand.logo.light} alt={content.brand.name} className="logo-img--light" />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={content.brand.logo.dark} alt={content.brand.name} className="logo-img--dark" />
+              </>
+            ) : (
+              <span className="logo-mark">
+                <span className="logo-name">{content.brand.name}</span>
+                {content.brand.brokerageLogo ? (
+                  <span className="logo-brokerage">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={content.brand.brokerageLogo.light} alt={content.brand.tagline} className="logo-brokerage--light" />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={content.brand.brokerageLogo.dark} alt="" aria-hidden="true" className="logo-brokerage--dark" />
+                  </span>
+                ) : (
+                  <span className="logo-tag">{content.brand.tagline}</span>
+                )}
+              </span>
+            )}
+          </a>
+          <div className="header__right">
+            <ul className="navigation">
+              <li className="navigation__item navigation__item--search">
+                <a href="/listings" className="navigation__link nav-search">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="M20 20l-4.2-4.2" /></svg>
+                  <span>Search Listings</span>
+                </a>
+              </li>
+              {content.nav.right.map((link) => (
+                <li className="navigation__item" key={link.label}>
+                  <a href={link.href} className="navigation__link"><span>{link.label}</span></a>
+                </li>
+              ))}
+            </ul>
+            <button className="hamburger" id="hamburger" aria-label="Open menu"><span></span></button>
+          </div>
+        </div>
+      </nav>
+
+      {/* ============ SIDE MENU ============ */}
+      <div className="sidemenu" id="sidemenu" aria-hidden="true">
+        {content.brand.decal && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img className="sidemenu__decal" src={content.brand.decal} alt="" aria-hidden="true" />
+        )}
+        <button className="sidemenu__close" id="sidemenu-close" aria-label="Close menu">&times;</button>
+        {content.brand.logo ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img className="sidemenu__logo" src={content.brand.logo.menu ?? content.brand.logo.light} alt={content.brand.name} />
+        ) : (
+          <span className="sidemenu__eyebrow">{content.brand.tagline}</span>
+        )}
+        <ul className="sidemenu__nav">
+          {content.nav.menu.map((link, i) => (
+            <li key={link.label} style={{ transitionDelay: `${80 + i * 45}ms` }}>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))}
+        </ul>
+        <div className="sidemenu__contact">
+          <span className="sidemenu__contact-name">{content.footer.agentName}</span>
+          {content.contact?.phone && (
+            <a href={`tel:${content.contact.phone.replace(/[^+\d]/g, "")}`}>{content.contact.phone}</a>
+          )}
+          {content.contact?.email && <a href={`mailto:${content.contact.email}`}>{content.contact.email}</a>}
+          <span>
+            {content.footer.brokerage}
+            {content.legal?.licenseNumber ? ` · License # ${content.legal.licenseNumber}` : ""}
+          </span>
+        </div>
+      </div>
+      <div className="sidemenu-overlay" id="sidemenu-overlay"></div>
+
+      {/* Elfsight reviews widget (configured as a floating rating badge in Elfsight) */}
+      {content.reviews && (
+        <>
+          <div className={`elfsight-app-${content.reviews.elfsightAppId}`} data-elfsight-app-lazy></div>
+          <Script src="https://elfsightcdn.com/platform.js" strategy="lazyOnload" />
+        </>
+      )}
+
+      {children}
+
+      {/* ============ FOOTER ============ */}
+      <footer>
+        <div className="footer">
+          {/* Logo, one row of links, contact. Name, brokerage and license are
+              already in the copyright and compliance lines below. */}
+          <div className="footer__top container">
+            <a href={content.brand.homeHref ?? "/"} className="footer__logo" aria-label="Home">
+              {content.brand.logo ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={content.brand.logo.dark} alt={content.brand.name} />
+              ) : (
+                <span className="footer__wordmark">{content.brand.name}</span>
+              )}
+              {content.brand.brokerageLogo && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img className="footer__brokerage" src={content.brand.brokerageLogo.dark} alt={content.footer.brokerage} />
+              )}
+            </a>
+            <nav className="footer__nav" aria-label="Footer">
+              {content.footer.links.map((link) => (
+                <a href={link.href} key={link.label}>{link.label}</a>
+              ))}
+            </nav>
+            <div className="footer__contact">
+              {content.contact?.phone && (
+                <a href={`tel:${content.contact.phone.replace(/[^+\d]/g, "")}`}>{content.contact.phone}</a>
+              )}
+              {content.contact?.email && <a href={`mailto:${content.contact.email}`}>{content.contact.email}</a>}
+              <span className="footer__address">
+                {content.footer.addressLines
+                  .filter((line) => line !== content.contact?.phone)
+                  .map((line, i, all) => (
+                    <span key={i}>{line}{i < all.length - 1 && <br />}</span>
+                  ))}
+              </span>
+              {content.footer.socials.length > 0 && (
+                <ul className="socials">
+                  {content.footer.socials.map((social) => (
+                    <li key={social.platform}>
+                      <a href={social.href} aria-label={social.platform}>
+                        <SocialIcon platform={social.platform} />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+          <div className="footer__legal container">
+            <nav className="footer__legal-links" aria-label="Legal">
+              <a href="/legal/privacy-policy">Privacy Policy</a>
+              <a href="/legal/terms-and-conditions">Terms &amp; Conditions</a>
+              <a href="/legal/accessibility">Accessibility</a>
+              <a href="/legal/fair-housing">Fair Housing</a>
+            </nav>
+            {content.documents && content.documents.length > 0 && (
+              <nav className="footer__docs" aria-label="Brokerage disclosures">
+                {content.documents.map((doc) => (
+                  <a href={doc.href} key={doc.href} target="_blank" rel="noopener">{doc.label}</a>
+                ))}
+              </nav>
+            )}
+            <details className="footer__legal-panel">
+              <summary>MLS Disclaimer &amp; IDX Information</summary>
+              <p>{mlsDisclaimerFor(content)}</p>
+            </details>
+            <details className="footer__legal-panel">
+              <summary>Fair Housing &amp; Equal Opportunity</summary>
+              <div className="footer__eho">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <a href="/legal/fair-housing" aria-label="Read our Fair Housing commitment"><img src="/equal-housing.png" alt="Equal Housing Opportunity" /></a>
+                <p>{FAIR_HOUSING_PLEDGE}</p>
+              </div>
+            </details>
+            <details className="footer__legal-panel">
+              <summary>Professional Licensing &amp; REALTOR&reg; Information</summary>
+              <p>
+                {content.footer.agentName} &middot; {content.footer.brokerage}
+                {content.legal?.licenseNumber ? ` · License #${content.legal.licenseNumber}` : ""}
+                {content.legal?.licenseState ? ` · ${content.legal.licenseState}` : ""}
+              </p>
+              <p>{REALTOR_MARK_NOTICE}</p>
+              <p>All information provided is deemed reliable but is not guaranteed and should be independently verified.</p>
+            </details>
+          </div>
+          <div className="footer__bottom container">
+            <span>{content.footer.copyright}&nbsp;|&nbsp;Equal Housing Opportunity</span>
+            {content.footer.compliance && (
+              <span className="footer__compliance">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={content.footer.compliance.image} alt="Equal Housing Opportunity" />
+                <span>{content.footer.compliance.text}</span>
+              </span>
+            )}
+            <span className="footer__credit">
+              Pipeline Supplied By <a href="https://dmrmedia.org" target="_blank" rel="noopener">DMR Media</a>
+            </span>
+          </div>
+        </div>
+      </footer>
+
+      {/* ============ FLOATING CONNECT BUTTON ============ */}
+      <a href={content.cta.buttonHref} className="connect-btn" id="connect-btn">{content.cta.buttonLabel}</a>
+    </div>
+  );
+}
+
+export function SocialIcon({ platform }: { platform: "instagram" | "facebook" | "linkedin" | "youtube" }) {
+  switch (platform) {
+    case "instagram":
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none" /></svg>
+      );
+    case "facebook":
+      return (
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-7h2.4l.4-3h-2.8V9.1c0-.9.3-1.5 1.6-1.5h1.3V4.9c-.3 0-1.1-.1-2-.1-2 0-3.4 1.2-3.4 3.5V11H8.5v3H11v7h2.5z" /></svg>
+      );
+    case "youtube":
+      return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M3.5 8.2c.2-1.4 1.2-2.4 2.6-2.5C8 5.5 10 5.4 12 5.4s4 .1 5.9.3c1.4.1 2.4 1.1 2.6 2.5.2 1.2.3 2.5.3 3.8s-.1 2.6-.3 3.8c-.2 1.4-1.2 2.4-2.6 2.5-1.9.2-3.9.3-5.9.3s-4-.1-5.9-.3c-1.4-.1-2.4-1.1-2.6-2.5C3.3 14.6 3.2 13.3 3.2 12s.1-2.6.3-3.8z" /><path d="M10 9.3v5.4l4.6-2.7L10 9.3z" fill="currentColor" stroke="none" /></svg>
+      );
+    case "linkedin":
+      return (
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.5 8.5h3V20h-3V8.5zM6 4a1.75 1.75 0 110 3.5A1.75 1.75 0 016 4zm4.5 4.5h2.9v1.6c.4-.8 1.5-1.8 3.2-1.8 3 0 3.9 1.9 3.9 4.5V20h-3v-6.1c0-1.5-.3-2.5-1.7-2.5-1.5 0-2.3 1-2.3 2.5V20h-3V8.5z" /></svg>
+      );
+  }
+}

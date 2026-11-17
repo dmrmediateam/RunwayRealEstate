@@ -1,0 +1,160 @@
+/* ==========================================================================
+   First-visit intro (components/IntroSplash.tsx). ~3s total:
+     0.10-0.95s  hairlines glide in from both edges and meet at a dot
+     0.55-1.50s  logo rises out of a mask and sharpens into focus
+     1.15-1.95s  tagline settles in, letter-spacing closing up
+     2.40-3.00s  screen fades, logo lifts slightly
+   The overlay only exists while <html data-intro> is "play" or "leaving",
+   set by the head script before first paint. Colors come from the theme
+   variables, so it follows each client's palette with no edits.
+   ========================================================================== */
+
+.intro { display: none; }
+
+html[data-intro="play"],
+html[data-intro="leaving"] { overflow: hidden; }
+
+html[data-intro="play"] .intro,
+html[data-intro="leaving"] .intro {
+  --intro-bg: var(--cream);
+  --intro-ink: var(--navy);
+  --intro-line: var(--accent, var(--navy));
+  display: grid;
+  place-items: center;
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000; /* above third-party badges (reviews, chat) */
+  overflow: hidden;
+  background: var(--intro-bg);
+  color: var(--intro-ink);
+  cursor: default;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+html[data-intro] .intro--dark {
+  --intro-bg: var(--navy);
+  --intro-ink: #fff;
+}
+/* A soft vignette so the backdrop has depth rather than a flat fill */
+html[data-intro="play"] .intro::before,
+html[data-intro="leaving"] .intro::before {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(closest-side, rgba(255, 255, 255, 0.07), transparent 70%);
+  animation: introBreathe 3s ease-out both;
+}
+html[data-intro] .intro--light::before {
+  background: radial-gradient(closest-side, rgba(255, 255, 255, 0.6), transparent 70%);
+}
+@keyframes introBreathe {
+  from { opacity: 0; scale: 0.85; }
+  to { opacity: 1; scale: 1; }
+}
+
+html[data-intro="leaving"] .intro { opacity: 0; pointer-events: none; }
+
+/* Hold the page's own entrance animations until the intro lifts, so they
+   play for the visitor instead of finishing behind the overlay. */
+html[data-intro="play"] .load-anim,
+html[data-intro="play"] .load-anim *,
+html[data-intro="play"] [data-intro-hold],
+html[data-intro="play"] [data-intro-hold] * { animation-play-state: paused !important; }
+
+.intro__stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(18px, 3vh, 28px);
+  padding: 0 24px;
+}
+html[data-intro="leaving"] .intro__stage {
+  translate: 0 -12px;
+  transition: translate 0.6s ease-in;
+}
+
+/* Logo: rises out of a mask from below while it comes into focus. */
+.intro__mark {
+  display: block;
+  clip-path: inset(0 0 0 0);
+}
+.intro__mark img,
+.intro__name {
+  display: block;
+  animation: introRise 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.55s both;
+}
+.intro__mark img {
+  width: auto;
+  height: auto;
+  max-width: min(62vw, 300px);
+  max-height: 26vh;
+}
+.intro__name {
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(30px, 5vw, 52px);
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  text-align: center;
+}
+@keyframes introRise {
+  from { translate: 0 60%; opacity: 0; filter: blur(8px); }
+  60% { opacity: 1; }
+  to { translate: 0 0; opacity: 1; filter: blur(0); }
+}
+
+/* Hairlines: glide in from either side and meet at a centered dot. */
+.intro__line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: min(72vw, 420px);
+}
+.intro__rule {
+  flex: 1;
+  height: 1px;
+  background: var(--intro-line);
+  opacity: 0.85;
+}
+.intro__rule--l {
+  transform-origin: 0 50%;
+  animation: introDrawL 0.85s cubic-bezier(0.65, 0, 0.35, 1) 0.1s both;
+}
+.intro__rule--r {
+  transform-origin: 100% 50%;
+  animation: introDrawR 0.85s cubic-bezier(0.65, 0, 0.35, 1) 0.1s both;
+}
+@keyframes introDrawL {
+  from { scale: 0 1; translate: -40vw 0; }
+  to { scale: 1 1; translate: 0 0; }
+}
+@keyframes introDrawR {
+  from { scale: 0 1; translate: 40vw 0; }
+  to { scale: 1 1; translate: 0 0; }
+}
+.intro__dot {
+  width: 5px;
+  height: 5px;
+  rotate: 45deg;
+  background: var(--intro-line);
+  animation: introPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.85s both;
+}
+@keyframes introPop {
+  from { scale: 0; }
+  to { scale: 1; }
+}
+
+/* Tagline: small caps that settle in as their spacing closes up. */
+.intro__tagline {
+  font-family: Jost, "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(10px, 1.1vw, 12px);
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  text-align: center;
+  opacity: 0.85;
+  animation: introTag 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.15s both;
+}
+@keyframes introTag {
+  from { opacity: 0; letter-spacing: 0.6em; }
+  to { opacity: 0.85; letter-spacing: 0.32em; }
+}
