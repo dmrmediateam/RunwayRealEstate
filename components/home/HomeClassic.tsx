@@ -82,25 +82,6 @@ export default function HomeClassic({
         )}
       </section>
 
-      {/* ============ SEARCH CARD (hands off to the airpark directory) ============ */}
-      <section className="search-bar-section rw-search" id="search-bar">
-        <div className="search-bar">
-          <form action="/airparks" method="get" className="search-input-container" role="search">
-            <svg className="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="7" /><path d="M20 20l-4-4" /></svg>
-            <input type="text" name="q" placeholder={content.searchBar.placeholder} className="search-input" aria-label="Search airparks" />
-          </form>
-          <nav className="rw-search__types" aria-label="Browse by property type">
-            <a href="/buy">Hangar homes</a>
-            <a href="/aero-country-east">Toybox hangars</a>
-            <a href="/airparks">Lots</a>
-          </nav>
-          <a href={content.searchBar.ctaHref} className="contact-section">
-            <span className="link-label">{content.searchBar.ctaLabel}</span>
-            <span className="icon-style" aria-hidden="true">{ARROW}</span>
-          </a>
-        </div>
-      </section>
-
       {/* ============ HANGAR DOORS (services) ============ */}
       <section className="rw-doors" aria-label="What Runway represents">
         {content.services.map((card, i) => (

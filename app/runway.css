@@ -661,7 +661,7 @@ body { color: var(--ink); }
    Hangar doors: three full-bleed panels under the hero. The hovered door
    opens (flex-grow) and reveals its description; the others narrow.
    ========================================================================== */
-.rw-doors { display: flex; height: clamp(520px, 72vh, 760px); background: var(--navy); }
+.rw-doors { display: flex; height: clamp(520px, 72vh, 760px); background: var(--navy); border-top: 1px solid rgba(255,255,255,0.1); }
 .rw-door {
   position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; color: #fff; display: flex; align-items: flex-end;
   transition: flex-grow 0.9s var(--ease-out);
