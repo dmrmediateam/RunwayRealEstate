@@ -4,7 +4,7 @@ import ListingsGrid from "@/components/ListingsGrid";
 import Testimonials from "@/components/Testimonials";
 import AirparkRail from "@/components/home/AirparkRail";
 import { airparks } from "@/content/airparks";
-import type { GalleryCard, Listing, SiteContent } from "@/content/site";
+import type { Listing, SiteContent } from "@/content/site";
 
 /* ==========================================================================
    Home variant "classic", Runway edition. Keeps the classic skeleton (centered
@@ -101,8 +101,29 @@ export default function HomeClassic({
         </div>
       </section>
 
-      {/* ============ SERVICES ============ */}
-      <GallerySection cards={content.services} columns={3} />
+      {/* ============ HANGAR DOORS (services) ============ */}
+      <section className="rw-doors" aria-label="What Runway represents">
+        {content.services.map((card, i) => (
+          <a href={card.href} className="rw-door" key={card.title}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={card.image} alt="" className="rw-door__img" loading={i === 0 ? "eager" : "lazy"} />
+            <span className="rw-door__num">0{i + 1}</span>
+            <div className="rw-door__body">
+              <h3 className="rw-door__title">{card.title}</h3>
+              <div className="rw-door__reveal">
+                <div>
+                  {card.description && <p className="rw-door__desc">{card.description}</p>}
+                  <span className="rw-door__cta">{card.cta ?? "Explore"}{ARROW}</span>
+                </div>
+              </div>
+            </div>
+            <span className="rw-door__arrow" aria-hidden="true">{ARROW}</span>
+          </a>
+        ))}
+      </section>
+
+      {/* ============ MEET JEANIE ============ */}
+      <AboutBlock content={content} />
 
       {/* ============ INTRO ============ */}
       <section className="solid-section rw-intro">
@@ -110,7 +131,7 @@ export default function HomeClassic({
           <div className="lp-container">
             <div className="rw-intro__grid">
               <div className="reveal">
-                <div className="rw-intro__kicker"><span className="rw-id">Why Runway</span></div>
+                <div className="rw-intro__kicker"><span className="rw-eyebrow">Why Runway</span></div>
                 <h2 className="lp-h2">{content.intro.title}</h2>
               </div>
               <div className="reveal" data-delay="120">
@@ -145,7 +166,7 @@ export default function HomeClassic({
       <section className="rw-spotlight lp-vertical-paddings">
         <div className="lp-container">
           <div className="reveal">
-            <div className="rw-spotlight__kicker"><span className="rw-id">T31</span><span>Featured development · Exclusive broker</span></div>
+            <div className="rw-spotlight__kicker"><span className="rw-eyebrow">Featured development · T31 · Exclusive broker</span></div>
             <h2 className="lp-h2">Aero Country East. North Texas&rsquo;s newest airpark, now selling.</h2>
             <p>
               Thirty-plus acres on the east side of Aero Country Airport in McKinney, between Prosper, Frisco and Plano.
@@ -212,32 +233,6 @@ export default function HomeClassic({
       {/* ============ TESTIMONIALS ============ */}
       <Testimonials content={content} />
 
-      {/* ============ ABOUT ============ */}
-      <section className="solid-section">
-        <div className="about-flow lp-vertical-paddings">
-          <div className="lp-container">
-            <div className="about-flow__body reveal">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={content.about.image} alt={content.about.title} className="about-flow__portrait" />
-              <h2 className="lp-h2">{content.about.title}</h2>
-              <div className="lp-text--subtitle">
-                <h5>{content.about.subtitle}</h5>
-                {content.about.blocks.map((block, i) => (
-                  <div key={i}>
-                    {block.heading && <p><strong>{block.heading}</strong></p>}
-                    <p>{block.text}</p>
-                  </div>
-                ))}
-                <div className="about-flow__links">
-                  <a href="/about" className="rw-btn rw-btn--navy">About Jeanie{ARROW}</a>
-                  <a href="/about#reviews" className="rw-btn rw-btn--outline">Read the reviews</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ============ CTA (parallax) ============ */}
       <section
         className="image-section parallax-enabled"
@@ -260,29 +255,28 @@ export default function HomeClassic({
   );
 }
 
-function GallerySection({ cards, columns }: { cards: GalleryCard[]; columns: 2 | 3 }) {
+function AboutBlock({ content }: { content: SiteContent }) {
   return (
-    <section className="solid-section">
-      <div className="gallery-component">
+    <section className="solid-section rw-about">
+      <div className="about-flow lp-vertical-paddings">
         <div className="lp-container">
-          <div className={`gallery-row cols-${columns}`}>
-            {cards.map((card, i) => (
-              <div className="gallery-col reveal" key={card.title} data-delay={i % columns === 0 ? undefined : (i % columns) * 100}>
-                <a className={`gallery-card${columns === 2 ? " gallery-card--short" : ""}`} href={card.href}>
-                  <div className="gallery-card__preview">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={card.image} alt="" loading="lazy" />
-                  </div>
-                  <div className="gallery-card__label">
-                    <div className="gallery-card__text">
-                      {card.preTitle && <span className="gallery-card__pre">{card.preTitle}</span>}
-                      <h3 className="gallery-card__title">{card.title}</h3>
-                      {card.cta && <span className="gallery-card__cta">{card.cta}</span>}
-                    </div>
-                  </div>
-                </a>
+          <div className="about-flow__body reveal">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={content.about.image} alt={content.about.title} className="about-flow__portrait" />
+            <h2 className="lp-h2">{content.about.title}</h2>
+            <div className="lp-text--subtitle">
+              <h5>{content.about.subtitle}</h5>
+              {content.about.blocks.map((block, i) => (
+                <div key={i}>
+                  {block.heading && <p><strong>{block.heading}</strong></p>}
+                  <p>{block.text}</p>
+                </div>
+              ))}
+              <div className="about-flow__links">
+                <a href="/about" className="rw-btn rw-btn--navy">About Jeanie{ARROW}</a>
+                <a href="/about#reviews" className="rw-btn rw-btn--outline">Read the reviews</a>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </div>

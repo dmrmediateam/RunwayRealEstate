@@ -139,7 +139,7 @@ export default async function AirparkPage({ params }: { params: Promise<{ id: st
         <section className="rw-spotlight lp-vertical-paddings">
           <div className="lp-container">
             <div className="reveal">
-              <div className="rw-spotlight__kicker"><span className="rw-id">Now selling</span><span>Exclusive broker</span></div>
+              <div className="rw-spotlight__kicker"><span className="rw-eyebrow">Now selling · Exclusive broker</span></div>
               <h2 className="lp-h2">Aero Country East: hangar-home lots and toybox hangars at {a.id}.</h2>
               <p>Own the land and the hangar on the east side of the runway. Lots from $375,000, new-construction toybox hangars from $850,000.</p>
               <div className="rw-spotlight__actions">

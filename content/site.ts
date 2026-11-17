@@ -664,23 +664,23 @@ export const site: SiteContent = {
   ],
   services: [
     {
-      preTitle: "Live with the airplane",
       title: "Hangar Homes",
-      cta: "Explore",
+      description: "Homes with an attached or detached hangar and taxiway access to the runway, at established airparks and new construction across North Texas.",
+      cta: "Buy a hangar home",
       href: "/buy",
       image: "/photos/hva-hangar-dusk.jpg",
     },
     {
-      preTitle: "Aircraft · Collections · Business",
       title: "Toybox & Commercial Hangars",
-      cta: "Explore",
+      description: "Standalone hangars for aircraft, car collections, motorcoaches or an aviation business. Own the land, or understand the ground lease before you sign.",
+      cta: "See toybox hangars",
       href: "/aero-country-east",
       image: "/photos/ace-hangar-cars.jpg",
     },
     {
-      preTitle: "Bring your builder",
       title: "Lots & Development",
-      cta: "Explore",
+      description: "Runway lots, hangar lots and airpark development parcels, read by a broker with an airport development background.",
+      cta: "Browse the airparks",
       href: "/airparks",
       image: "/photos/render-hangar-home-1.jpg",
     },
@@ -688,7 +688,7 @@ export const site: SiteContent = {
   intro: {
     title: "Airport property is a different market. It deserves a broker who grew up in it.",
     paragraphs: [
-      "Jeanie Cline brings more than 15 years of experience in aviation real estate, airport development and specialized property sales across Texas. Raised in a family of private pilots and commercial real estate professionals, she understands what makes airport property different: hangar dimensions and door clearance, taxiway access and through-the-fence rights, airport ownership structures, fuel, weight limits and the depth of the buyer pool at each field.",
+      "Hangar dimensions and door clearance. Taxiway access and through-the-fence rights. Whether the runway is owned by the association, a private landowner or the city. Fuel, weight limits, noise rules, and how deep the buyer pool really is at each field. None of it shows up in an MLS field, and all of it decides whether a property works for you.",
       "Runway Real Estate represents private hangars, airpark homes, hangar homes, aviation facilities, runway lots and airport developments across Dallas/Fort Worth, and is the exclusive broker for Aero Country East, North Texas's newest airpark.",
     ],
     ctaLabel: "Meet Jeanie",

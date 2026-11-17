@@ -52,9 +52,9 @@ export default function RootLayout({
           href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700&display=swap"
           rel="stylesheet"
         />
-        {/* Runway Real Estate type: Fraunces (display), Jost (nav/headings), Manrope (body), IBM Plex Mono (identifiers/specs) */}
+        {/* Runway Real Estate type: Michroma (display, matches the wordmark), Montserrat (nav, eyebrows, data labels), Manrope (body) */}
         <link
-          href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Manrope:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Michroma&family=Manrope:wght@300;400;500;600;700&display=swap"
           rel="stylesheet"
         />
       </head>
