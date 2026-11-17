@@ -91,7 +91,7 @@ export default function SubPageView({
           )}
           {page.recentClosings && (
             <RecentClosings
-              listings={listings.filter((l) => /sold|closed/i.test(l.status ?? ""))}
+              listings={listings.filter((l) => /sold|closed|represented/i.test(l.status ?? ""))}
               intro={page.recentClosings.intro}
             />
           )}

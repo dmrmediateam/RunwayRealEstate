@@ -29,7 +29,7 @@ const FAQ = [
   { q: "What are the hangar dimensions?", a: "The new-construction toybox hangars have a 60 by 60 by 26 foot footprint with a 54 by 18 foot hydraulic door, a full bathroom with washer and dryer hookups, a kitchenette, four windows and a man door." },
   { q: "Can I build a home on a lot?", a: "Yes. The residential homesites are zoned for detached hangar homes. Bring your builder and design a one- to three-story residence with a private hangar; rooftop decks are an option on many plans." },
   { q: "What is the runway like?", a: "Aero Country's paved, lighted runway is roughly 3,000 feet, with an additional turf section to the north, 100LL self-serve fuel available 24 hours, and a maximum aircraft weight of 6,500 pounds. The airport is privately owned by its property owners association and open to the public." },
-  { q: "Who is the broker?", a: "Jeanie Cline of Runway Real Estate is the exclusive broker for Aero Country East through Real Broker, LLC. Call or text (972) 369-3509 for the current lot map and availability." },
+  { q: "Who is the broker?", a: "Jeanie Cline of Runway Real Estate represents Aero Country East through Real Broker, LLC, the exclusive brokerage for the development. Call or text (972) 369-3509 for the current lot map and availability." },
 ];
 
 export default function AeroCountryEastPage() {
@@ -86,7 +86,7 @@ export default function AeroCountryEastPage() {
           <span><b>From $850,000</b> Toybox hangars</span>
           <span><b>30+ acres</b> East of the runway</span>
           <span><b>Fee simple</b> No ground lease</span>
-          <span><b>Exclusive broker</b> Jeanie Cline · Real Broker, LLC</span>
+          <span><b>Exclusive brokerage</b> Real Broker, LLC · Jeanie Cline</span>
         </div>
       </div>
 

@@ -384,6 +384,7 @@ body { color: var(--ink); }
 .rw-ih__pre { margin-top: 18px; font-size: 17px; color: rgba(255,255,255,0.7); max-width: 44ch; line-height: 1.6; }
 .rw-ih__media { position: relative; overflow: hidden; min-height: 360px; }
 .rw-ih__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.rw-ih__media img[src*="jeanie-cline"] { object-position: 50% 8%; }
 .rw-ih__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(5,10,48,0.5), rgba(5,10,48,0) 40%); }
 .rw-ih__meta { position: absolute; right: 28px; bottom: 24px; z-index: 2; display: flex; gap: 8px; }
 @media (max-width: 900px) {
@@ -661,7 +662,10 @@ body { color: var(--ink); }
    Hangar doors: three full-bleed panels under the hero. The hovered door
    opens (flex-grow) and reveals its description; the others narrow.
    ========================================================================== */
-.rw-doors { display: flex; height: clamp(520px, 72vh, 760px); background: var(--navy); border-top: 1px solid rgba(255,255,255,0.1); }
+.rw-doors-lead { background: var(--paper, #f7f5f0); padding: clamp(56px, 7vw, 96px) 0 clamp(40px, 5vw, 64px); }
+.rw-doors-lead .rw-eyebrow { display: inline-flex; margin-bottom: 18px; }
+.rw-doors-lead .lp-h2 { color: var(--navy); max-width: 22ch; }
+.rw-doors { display: flex; height: clamp(520px, 72vh, 760px); background: var(--navy); }
 .rw-door {
   position: relative; flex: 1 1 0; min-width: 0; overflow: hidden; color: #fff; display: flex; align-items: flex-end;
   transition: flex-grow 0.9s var(--ease-out);
@@ -675,12 +679,6 @@ body { color: var(--ink); }
   transition: background 0.6s;
 }
 .rw-door + .rw-door { border-left: 1px solid rgba(255,255,255,0.14); }
-.rw-door__num {
-  position: absolute; top: 28px; left: 32px; z-index: 2;
-  font-family: var(--display-font); font-size: 11px; letter-spacing: 0.2em; color: rgba(255,255,255,0.8);
-  display: flex; align-items: center; gap: 12px;
-}
-.rw-door__num::after { content: ""; width: 34px; height: 2px; background: var(--accent); }
 .rw-door__body { position: relative; z-index: 2; padding: 0 72px 40px 32px; width: 100%; max-width: 100%; }
 .rw-door__reveal, .rw-door__desc { max-width: 520px; }
 .rw-door__title { font-family: var(--display-font); font-weight: 400; font-size: clamp(15px, 1.35vw, 21px); letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.3; }
@@ -703,7 +701,7 @@ body { color: var(--ink); }
   .rw-door { flex: none; min-height: 300px; }
   .rw-door + .rw-door { border-left: 0; border-top: 1px solid rgba(255,255,255,0.14); }
   .rw-door__reveal { grid-template-rows: 1fr; opacity: 1; }
-  .rw-door__body { padding: 90px 24px 32px; }
+  .rw-door__body { padding: 72px 24px 32px; }
   .rw-door__arrow { display: none; }
 }
 

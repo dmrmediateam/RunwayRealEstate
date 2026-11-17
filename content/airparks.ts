@@ -64,10 +64,10 @@ export const airparks: Airpark[] = [
     elevationFt: 765,
     fuel: "100LL, 24-hour self-serve",
     ctafMhz: 122.9,
-    summary: "North Texas's newest airpark development, between Prosper, Frisco and Plano. Jeanie is the exclusive broker for Aero Country East.",
+    summary: "North Texas's newest airpark development, between Prosper, Frisco and Plano. Jeanie represents Aero Country East through Real Broker, LLC.",
     overview: [
       "Aero Country is a privately owned, public-use airport in McKinney, Texas, owned and governed by its property owners association. It sits in the North Dallas corridor between Prosper, Frisco and Plano, which makes it one of the few residential airparks in the country where you can keep an airplane at the house and still be minutes from a major metro.",
-      "The east side of the runway is home to Aero Country East, a 30-plus acre development of residential hangar-home lots and new-construction toybox hangars. Land and hangar sell together: there is no ground lease. Jeanie Cline represents the development as its exclusive broker through Real Broker, LLC.",
+      "The east side of the runway is home to Aero Country East, a 30-plus acre development of residential hangar-home lots and new-construction toybox hangars. Land and hangar sell together: there is no ground lease. Jeanie Cline represents the development through Real Broker, LLC, its exclusive brokerage.",
       "AirNav remarks flag the field as a residential airpark: expect vehicles on taxiways, and note that transient flight training and touch-and-go operations are not permitted.",
     ],
     buyerNotes: [

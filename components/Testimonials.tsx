@@ -9,7 +9,7 @@ export default function Testimonials({ content, id }: { content: SiteContent; id
       <div className="lp-container">
         <div className="rw-quotes__head reveal">
           <h2 className="lp-h2">What pilots and owners say about working with Jeanie.</h2>
-          <p>Client reviews · Zillow &amp; Google</p>
+          <p>Client reviews · Verified buyers and sellers</p>
         </div>
         <div className="rw-quotes__grid">
           {items.map((t, i) => (

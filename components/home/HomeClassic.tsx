@@ -82,13 +82,18 @@ export default function HomeClassic({
         )}
       </section>
 
-      {/* ============ HANGAR DOORS (services) ============ */}
+      {/* ============ PAPER BREATH + HANGAR DOORS (services) ============ */}
+      <div className="rw-doors-lead">
+        <div className="lp-container reveal">
+          <span className="rw-eyebrow">What Runway represents</span>
+          <h2 className="lp-h2">Three ways to live with the airplane.</h2>
+        </div>
+      </div>
       <section className="rw-doors" aria-label="What Runway represents">
         {content.services.map((card, i) => (
           <a href={card.href} className="rw-door" key={card.title}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={card.image} alt="" className="rw-door__img" loading={i === 0 ? "eager" : "lazy"} />
-            <span className="rw-door__num">0{i + 1}</span>
             <div className="rw-door__body">
               <h3 className="rw-door__title">{card.title}</h3>
               <div className="rw-door__reveal">
@@ -147,7 +152,7 @@ export default function HomeClassic({
       <section className="rw-spotlight lp-vertical-paddings">
         <div className="lp-container">
           <div className="reveal">
-            <div className="rw-spotlight__kicker"><span className="rw-eyebrow">Featured development · T31 · Exclusive broker</span></div>
+            <div className="rw-spotlight__kicker"><span className="rw-eyebrow">Featured development · T31 · Now selling</span></div>
             <h2 className="lp-h2">Aero Country East. North Texas&rsquo;s newest airpark, now selling.</h2>
             <p>
               Thirty-plus acres on the east side of Aero Country Airport in McKinney, between Prosper, Frisco and Plano.

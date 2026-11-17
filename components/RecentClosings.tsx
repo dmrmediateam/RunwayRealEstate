@@ -7,13 +7,15 @@ import type { Listing } from "@/content/site";
  */
 export default function RecentClosings({
   listings,
-  kicker = "Recently Sold",
-  heading = "Recent Closings",
+  kicker = "Portfolio",
+  heading = "Recently Represented",
+  tag = "Represented",
   intro,
 }: {
   listings: Listing[];
   kicker?: string;
   heading?: string;
+  tag?: string;
   intro?: string;
 }) {
   if (listings.length === 0) return null;
@@ -34,7 +36,7 @@ export default function RecentClosings({
                   <span className="closings__media">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={listing.image} alt={listing.address} loading="lazy" />
-                    <span className="closings__tag">Sold</span>
+                    <span className="closings__tag">{tag}</span>
                   </span>
                   <span className="closings__address">{listing.address}</span>
                   {(listing.beds || listing.baths || listing.sqft) && (
