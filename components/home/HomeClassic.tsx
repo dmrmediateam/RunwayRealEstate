@@ -71,24 +71,20 @@ export default function HomeClassic({
           // eslint-disable-next-line @next/next/no-img-element
           <img src={content.brand.emblem} alt="" className="rw-hero__emblem" aria-hidden="true" />
         )}
-        {tickerItems.length > 0 && (
-          <div className="rw-ticker" aria-hidden="true">
-            <div className="rw-ticker__track">
-              {[...tickerItems, ...tickerItems].map((t, i) => (
-                <span className="rw-ticker__item" key={t.id + i}><b>{t.id}</b>{t.label}</span>
-              ))}
-            </div>
-          </div>
-        )}
       </section>
 
-      {/* ============ PAPER BREATH + HANGAR DOORS (services) ============ */}
-      <div className="rw-doors-lead">
-        <div className="lp-container reveal">
-          <span className="rw-eyebrow">What Runway represents</span>
-          <h2 className="lp-h2">Three ways to live with the airplane.</h2>
+      {/* ============ IDENTIFIER TICKER (paper strip under the hero) ============ */}
+      {tickerItems.length > 0 && (
+        <div className="rw-ticker" aria-hidden="true">
+          <div className="rw-ticker__track">
+            {[...tickerItems, ...tickerItems].map((t, i) => (
+              <span className="rw-ticker__item" key={t.id + i}><b>{t.id}</b>{t.label}</span>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* ============ HANGAR DOORS (services) ============ */}
       <section className="rw-doors" aria-label="What Runway represents">
         {content.services.map((card, i) => (
           <a href={card.href} className="rw-door" key={card.title}>
