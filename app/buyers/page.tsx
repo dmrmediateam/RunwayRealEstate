@@ -188,7 +188,6 @@ export default function BuyersPage() {
           <div className="bq-points">
             {points.map((point, i) => (
               <div className="bq-point" key={point.title}>
-                <span className="bq-point__num">{String(i + 1).padStart(2, "0")}</span>
                 <div>
                   <p className="bq-point__title">{point.title}</p>
                   <p className="bq-point__body">{point.body}</p>
@@ -218,7 +217,6 @@ export default function BuyersPage() {
           <div className="bq-steps">
             {STEPS.map((step, i) => (
               <Reveal key={step.title} delay={i * 100} className="bq-step">
-                <p className="bq-step__num">{String(i + 1).padStart(2, "0")}</p>
                 <h3 className="bq-step__title">{step.title}</h3>
                 <p className="bq-step__body">{step.body}</p>
               </Reveal>

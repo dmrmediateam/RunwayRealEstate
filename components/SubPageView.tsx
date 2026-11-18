@@ -52,7 +52,7 @@ export default function SubPageView({
             <nav className="rw-lead__aside reveal" aria-label="On this page">
               {page.steps && <a href="#process">Process</a>}
               {page.sections?.map((sec, i) => (
-                <a href={`#section-${i + 1}`} key={sec.heading}>{String(i + 1).padStart(2, "0")} · {sec.heading}</a>
+                <a href={`#section-${i + 1}`} key={sec.heading}>{sec.heading}</a>
               ))}
               {page.faq && <a href="#faq">Questions</a>}
               {page.showTestimonials && <a href="#reviews">Reviews</a>}
@@ -112,7 +112,6 @@ export default function SubPageView({
                 <ol className="rw-steps__grid">
                   {page.steps.map((step, i) => (
                     <li className="rw-step reveal" data-delay={(i % 4) * 80 || undefined} key={step.title}>
-                      <span className="rw-step__num">{String(i + 1).padStart(2, "0")}</span>
                       <h3>{step.title}</h3>
                       <p>{step.text}</p>
                     </li>
@@ -131,7 +130,7 @@ export default function SubPageView({
                   </div>
                 )}
                 <div className="rw-sec__text reveal" data-delay="100">
-                  <span className="rw-sec__num">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="rw-sec__rule" aria-hidden="true" />
                   <h2 className="lp-h2">{section.heading}</h2>
                   <p>{section.text}</p>
                 </div>

@@ -507,7 +507,7 @@ export const site: SiteContent = {
     },
     {
       slug: "buy",
-      index: "01 / Buyers",
+      index: "Buyers",
       title: "Buy a Hangar Home",
       preTitle: "Representation for pilots, collectors and operators",
       heroImage: "/photos/ace-lounge-wide.jpg",
@@ -550,7 +550,7 @@ export const site: SiteContent = {
     },
     {
       slug: "sell",
-      index: "02 / Sellers",
+      index: "Sellers",
       title: "Sell an Aviation Property",
       preTitle: "The buyers for a hangar are not on Zillow",
       heroImage: "/photos/ace-hangar-propeller-bar.jpg",
@@ -586,7 +586,7 @@ export const site: SiteContent = {
     },
     {
       slug: "about",
-      index: "03 / About",
+      index: "About",
       title: "Meet Jeanie Cline",
       preTitle: "Raised around airplanes and real estate. More than 15 years in aviation property across Texas.",
       heroImage: "/brand/jeanie-cline-portrait.jpg",

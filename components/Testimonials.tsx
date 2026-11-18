@@ -19,7 +19,7 @@ export default function Testimonials({ content, id }: { content: SiteContent; id
               <div className="rw-quote__foot">
                 <strong>{t.name}</strong>
                 {t.context && <span>{t.context}</span>}
-                {t.airpark && <span className="rw-id rw-id--dark">{t.airpark}</span>}
+                {t.airpark && <span className="rw-quote__where">{t.airpark}</span>}
               </div>
             </figure>
           ))}
